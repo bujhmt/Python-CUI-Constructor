@@ -12,7 +12,7 @@ version: 1.1.0
 
     > menu = cui.CUI() [default title for root - "Main menu"]
 
-    > menu = CUI("{custom title}")
+    > menu = cui.CUI("{custom title}")
 
 3) Create field:
 

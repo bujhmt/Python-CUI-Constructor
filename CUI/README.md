@@ -6,7 +6,7 @@ version: 1.0.0
 
 1) Add module to your code:
 
-    > from CUI.cui import CUI
+    > import CUI
 
 2) Create an instance of the class:
 

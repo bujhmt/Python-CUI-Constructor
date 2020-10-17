@@ -40,6 +40,7 @@ version: 1.1.0
 #Cross-platform capability
 
 > Linux: +
+
 > Windows: +
 
 

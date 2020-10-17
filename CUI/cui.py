@@ -20,7 +20,7 @@ def readChar():
     return x
 
 def getch():
-    if (os.name == 'nt'):
+    if os.name == 'nt':
         import msvcrt
         return msvcrt.getch()
     else:
@@ -91,9 +91,9 @@ class CUI(object):
     def __stepController(self, char):
         upperLimit: int = len(self.__currentNode.childs)
         charCode: int = ord(char.lower())
-        if charCode == 119 and self.__currentPos > 1: self.__currentPos += -1
+        if charCode == 119 and self.__currentPos > 1: self.__currentPos -= 1
         if charCode == 115 and self.__currentPos < upperLimit: self.__currentPos += 1
-        if charCode == 10:  self.__currentNode.childs[self.__currentPos - 1].on_press()
+        if charCode == 10 or charCode == 13:  self.__currentNode.childs[self.__currentPos - 1].on_press()
 
     def __goToCurrentNode(self):
         self.__currentNode = self.__currentNode.childs[self.__currentPos - 1]

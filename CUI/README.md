@@ -24,8 +24,8 @@ version: 1.1.0
 
     > menu.addMenu({"title"})
 
-    ### when you create a new menu, all your new [addField] and [addMenu] calls will refer to this menu
-    ### Calling [finishMenu()] method will terminate this menu and return you to the previous menu.
+    ##### when you create a new menu, all your new [addField] and [addMenu] calls will refer to this menu
+    ##### Calling [finishMenu()] method will terminate this menu and return you to the previous menu.
     
 5) Finish Menu
 

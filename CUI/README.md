@@ -2,7 +2,7 @@ https://github.com/bujhmt/utils for suggestions and corrections
 
 version: 1.1.0
 
-#How to start?
+# How to start?
 
 1) Add module to your code:
 
@@ -37,7 +37,7 @@ version: 1.1.0
 
     > Use English {W} and {S} to move up and down in the menu, press {ENTER} to select the highlighted item
 
-#Cross-platform capability
+# Cross-platform capability
 
 > Linux: +
 

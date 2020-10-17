@@ -28,6 +28,8 @@ version: 1.0.0
     !Calling [cui.finishMenu()] method will terminate this menu and return you to the previous menu.
 
 5) Using:
+    
+    > cui.run()
 
     > Use English {W} and {S} to move up and down in the menu, press {ENTER} to select the highlighted item
 

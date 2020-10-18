@@ -127,3 +127,16 @@ class CUI(object):
     def finishMenu(self):
         if self.__currentNode.root != None:
             self.__goToParent()
+
+    def renameField(self, current: str, new: str):
+        try:
+            if len(current) > 0 and len(new) > 0:
+                if self.__currentNode.title == current:
+                    self.__currentNode.title = new
+
+                for i in range(len(self.__currentNode.childs)):
+                    if self.__currentNode.childs[i].title == current:
+                        self.__currentNode.childs[i].title = new
+            else: raise Exception('Invalid title')
+        except Exception as err:
+            print("Error! ", err)

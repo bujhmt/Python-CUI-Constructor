@@ -1,6 +1,6 @@
 https://github.com/bujhmt/utils for suggestions and corrections
 
-version: 1.1.0
+version: 1.2.0
 
 # How to start?
 

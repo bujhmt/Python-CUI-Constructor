@@ -60,17 +60,24 @@ class Node(object):
 
 #CUI class
 class CUI(object):
-    #support:
-    __EXIT_NODE = Node("EXIT", lambda: exit(1))
-    __EMPTY_NODE = Node("", lambda: 0)
+    def __setBreakStatus(self, status: bool):
+        self.__isBreakON = status
 
-    #private fields:
-    __currentNode = __EMPTY_NODE
-    __currentPos = 1
 
     def __init__(self, mainMenuTitle = 'Main menu'):
-        self.root = Node(mainMenuTitle, lambda: None)
+        self.root = Node(mainMenuTitle, lambda: 0)
         self.__currentNode = self.root
+
+
+        # support:
+        self.__BREAK_NODE = Node("EXIT", lambda: self.__setBreakStatus(False))
+        self.__EXIT_NODE = Node("EXIT", lambda: exit(1))
+        self.__EMPTY_NODE = Node("", lambda: 0)
+
+
+        # private fields:
+        self.__currentPos = 1
+        self.__isBreakON = True
 
     def __print(self):
         clear()
@@ -105,12 +112,14 @@ class CUI(object):
 
     #public fields:
     def run(self, *args):
+        self.root.append(self.__BREAK_NODE)
         if len(args) == 0 or args[0] == True:
-            self.root.append(self.__EXIT_NODE)
             self.__currentNode = self.root
-        while True:
+
+        while (self.__isBreakON):
             self.__print()
             self.__stepController(self.__inputController())
+        clear()
 
     def addField(self, title, *args):
         if len(args) > 0:

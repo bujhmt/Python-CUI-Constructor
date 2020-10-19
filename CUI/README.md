@@ -1,6 +1,6 @@
 https://github.com/bujhmt/utils for suggestions and corrections
 
-version: 1.2.0
+version: 1.2.1
 
 # How to start?
 
@@ -43,4 +43,6 @@ version: 1.2.0
 
 > Windows: +
 
+# Methods
 
+    > renameField(current, new)

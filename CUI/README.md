@@ -48,3 +48,5 @@ version: 1.3.0
     > renameField(current, new)
 
     > deleteField(title)
+
+    > setMsg(msg):

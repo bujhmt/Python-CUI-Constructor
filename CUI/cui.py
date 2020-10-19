@@ -78,11 +78,12 @@ class CUI(object):
         # private fields:
         self.__currentPos = 1
         self.__isBreakON = True
+        self.__msg = ''
 
     def __print(self):
         clear()
         #custom items
-        print(f'-------{self.__currentNode.title}-------')
+        print(f'-------{self.__currentNode.title}-------' + self.__msg)
         for i in range(len(self.__currentNode.childs)):
             if i == self.__currentPos - 1:
                 printBold(f'[{self.__currentNode.childs[i].title}]')
@@ -112,9 +113,10 @@ class CUI(object):
 
     #public fields:
     def run(self, *args):
-        self.root.append(self.__BREAK_NODE)
-        if len(args) == 0 or args[0] == True:
-            self.__currentNode = self.root
+        self.__currentNode = self.root
+        exit_str = "EXIT"
+        if len(args) > 0 and isinstance(args[0], str): exit_str = args[0]
+        self.__currentNode.append(exit_str, lambda: self.__setBreakStatus(False))
 
         while (self.__isBreakON):
             self.__print()
@@ -159,3 +161,6 @@ class CUI(object):
             else: raise Exception('Invalid title')
         except Exception as err:
             print("Error! ", err)
+
+    def setMsg(self, msg: str):
+        self.__msg = msg

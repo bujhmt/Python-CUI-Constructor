@@ -1,6 +1,6 @@
 https://github.com/bujhmt/utils for suggestions and corrections
 
-version: 1.2.1
+version: 1.3.0
 
 # How to start?
 
@@ -46,3 +46,5 @@ version: 1.2.1
 # Methods
 
     > renameField(current, new)
+
+    > deleteField(title)

@@ -149,3 +149,13 @@ class CUI(object):
             else: raise Exception('Invalid title')
         except Exception as err:
             print("Error! ", err)
+
+    def deleteField(self, title: str):
+        try:
+            if len(title) > 0:
+                for i in range(len(self.__currentNode.childs)):
+                    if self.__currentNode.childs[i].title == title:
+                        del self.__currentNode.childs[i]
+            else: raise Exception('Invalid title')
+        except Exception as err:
+            print("Error! ", err)

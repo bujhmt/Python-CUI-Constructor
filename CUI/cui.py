@@ -12,13 +12,6 @@ def printBold(str):
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def readChar():
-    import tty
-    import termios
-    tty.setcbreak(sys.stdin)
-    x = sys.stdin.read(1)[0]
-    return x
-
 def getch():
     if os.name == 'nt':
         import msvcrt
@@ -71,7 +64,6 @@ class CUI(object):
 
         # support:
         self.__BREAK_NODE = Node("EXIT", lambda: self.__setBreakStatus(False))
-        self.__EXIT_NODE = Node("EXIT", lambda: exit(1))
         self.__EMPTY_NODE = Node("", lambda: 0)
 
 
@@ -91,10 +83,7 @@ class CUI(object):
                 print(f'[{self.__currentNode.childs[i].title}]')
 
     def __inputController(self):
-        if os.name == 'nt':
-            return getch()
-        else:
-            return  readChar()
+        return getch()
 
     def __stepController(self, char):
         upperLimit: int = len(self.__currentNode.childs)
@@ -164,3 +153,4 @@ class CUI(object):
 
     def setMsg(self, msg: str):
         self.__msg = msg
+

@@ -88,8 +88,8 @@ class CUI(object):
     def __stepController(self, char):
         upperLimit: int = len(self.__currentNode.childs)
         charCode: int = ord(char.lower())
-        if charCode == 119 and self.__currentPos > 1: self.__currentPos -= 1
-        if charCode == 115 and self.__currentPos < upperLimit: self.__currentPos += 1
+        if (charCode == 119 or charCode == 97) and self.__currentPos > 1: self.__currentPos += -1
+        if (charCode == 115 or charCode == 98) and self.__currentPos < upperLimit: self.__currentPos += 1
         if charCode == 10 or charCode == 13:  self.__currentNode.childs[self.__currentPos - 1].on_press()
 
     def __goToCurrentNode(self):

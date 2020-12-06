@@ -1,16 +1,17 @@
-#https://github.com/bujhmt/utils for suggestions and corrections
-
 import os
 import sys
 
-#console utils:
+
+# console utils:
 def printBold(str):
     BOLD = '\33[7m'
     CEND = '\033[0m'
     print(BOLD + str + CEND)
 
+
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
+
 
 def getch():
     if os.name == 'nt':
@@ -29,7 +30,7 @@ def getch():
         return ch
 
 
-#Tree Node 
+# Tree Node
 class Node(object):
 
     def __init__(self, title, on_press):
@@ -37,7 +38,6 @@ class Node(object):
         self.on_press = on_press
         self.childs = []
         self.root = None
-
 
     def append(self, *args):
         try:
@@ -51,21 +51,19 @@ class Node(object):
         except Exception as err:
             print("Error! ", err)
 
-#CUI class
+
+# CUI class
 class CUI(object):
     def __setBreakStatus(self, status: bool):
         self.__isBreakON = status
 
-
-    def __init__(self, mainMenuTitle = 'Main menu'):
+    def __init__(self, mainMenuTitle='Main menu'):
         self.root = Node(mainMenuTitle, lambda: 0)
         self.__currentNode = self.root
-
 
         # support:
         self.__BREAK_NODE = Node("EXIT", lambda: self.__setBreakStatus(False))
         self.__EMPTY_NODE = Node("", lambda: 0)
-
 
         # private fields:
         self.__currentPos = 1
@@ -74,7 +72,7 @@ class CUI(object):
 
     def __print(self):
         clear()
-        #custom items
+        # custom items
         print(f'-------{self.__currentNode.title}-------' + self.__msg)
         for i in range(len(self.__currentNode.childs)):
             if i == self.__currentPos - 1:
@@ -90,7 +88,10 @@ class CUI(object):
         charCode: int = ord(char.lower())
         if (charCode == 119 or charCode == 97) and self.__currentPos > 1: self.__currentPos += -1
         if (charCode == 115 or charCode == 98) and self.__currentPos < upperLimit: self.__currentPos += 1
-        if charCode == 10 or charCode == 13:  self.__currentNode.childs[self.__currentPos - 1].on_press()
+        try:
+            if charCode == 10 or charCode == 13:  self.__currentNode.childs[self.__currentPos - 1].on_press()
+        except Exception as err:
+            self.setMsg(' Invalid operation! ' + str(err)[0:70])
 
     def __goToCurrentNode(self):
         self.__currentNode = self.__currentNode.childs[self.__currentPos - 1]
@@ -100,12 +101,14 @@ class CUI(object):
         self.__currentNode = self.__currentNode.root
         self.__currentPos = 1
 
-    #public fields:
+    # public fields:
     def run(self, *args):
         self.__currentNode = self.root
         exit_str = "EXIT"
         if len(args) > 0 and isinstance(args[0], str): exit_str = args[0]
-        self.__currentNode.append(exit_str, lambda: self.__setBreakStatus(False))
+        if not (len(args) > 0 and isinstance(args[0], bool) and args[0] is False):
+            self.__currentNode.append(exit_str, lambda: self.__setBreakStatus(False))
+
 
         while (self.__isBreakON):
             self.__print()
@@ -137,7 +140,8 @@ class CUI(object):
                 for i in range(len(self.__currentNode.childs)):
                     if self.__currentNode.childs[i].title == current:
                         self.__currentNode.childs[i].title = new
-            else: raise Exception('Invalid title')
+            else:
+                raise Exception('Invalid title')
         except Exception as err:
             print("Error! ", err)
 
@@ -147,10 +151,15 @@ class CUI(object):
                 for i in range(len(self.__currentNode.childs)):
                     if self.__currentNode.childs[i].title == title:
                         del self.__currentNode.childs[i]
-            else: raise Exception('Invalid title')
+            else:
+                raise Exception('Invalid title')
         except Exception as err:
             print("Error! ", err)
 
     def setMsg(self, msg: str):
+        if len(msg) > 105:
+            msg = msg[0:msg.find('\n')]
         self.__msg = msg
 
+    def stop(self):
+        self.__setBreakStatus(False)
